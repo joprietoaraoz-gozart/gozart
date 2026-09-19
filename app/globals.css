@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #f0f3e0;
+  color: #292a22;
+}
+
+/* Blanco puro solo se usa combinado con el cream, nunca solo — 
+   por eso el body usa cream como base en vez de blanco. */
