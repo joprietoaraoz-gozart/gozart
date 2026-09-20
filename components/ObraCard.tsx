@@ -1,6 +1,6 @@
-import Image from "next/image";
 import type { Obra } from "@/lib/supabase";
 import WhatsAppModal from "./WhatsAppModal";
+import ObraImage from "./ObraImage";
 
 export default function ObraCard({ obra }: { obra: Obra }) {
   const precioDesde = obra.precio2
@@ -9,17 +9,12 @@ export default function ObraCard({ obra }: { obra: Obra }) {
 
   return (
     <div className="flex flex-col group">
-      <div className="relative aspect-[4/5] bg-sand/30 mb-3 overflow-hidden">
-        {obra.imagen_url && (
-          <Image
-            src={obra.imagen_url}
-            alt={`${obra.titulo} — ${obra.artista}`}
-            fill
-            className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-            sizes="(max-width: 768px) 50vw, 25vw"
-          />
-        )}
-      </div>
+      {obra.imagen_url && (
+        <ObraImage
+          src={obra.imagen_url}
+          alt={`${obra.titulo} — ${obra.artista}`}
+        />
+      )}
 
       <h3 className="font-sans text-sm text-charcoal leading-tight">
         {obra.titulo}
