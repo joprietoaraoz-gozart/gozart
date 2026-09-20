@@ -8,14 +8,14 @@ export default function ObraCard({ obra }: { obra: Obra }) {
     : obra.precio1;
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col group">
       <div className="relative aspect-[4/5] bg-sand/30 mb-3 overflow-hidden">
         {obra.imagen_url && (
           <Image
             src={obra.imagen_url}
             alt={`${obra.titulo} — ${obra.artista}`}
             fill
-            className="object-cover"
+            className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
             sizes="(max-width: 768px) 50vw, 25vw"
           />
         )}

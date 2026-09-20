@@ -103,3 +103,17 @@ fijos como el tagline del header), avisame y lo ajustamos en el código — eso
 sí requiere volver a desplegar. Agregar/editar/borrar obras, en cambio, lo
 hacés vos sola desde `/admin` en cualquier momento, sin tocar código ni volver
 a desplegar nada.
+
+## Estructura del sitio (actualizado)
+
+- **`/`** — Home: hero animado con tira de imágenes, sección "Sobre Gozart",
+  obras destacadas (las 8 más recientes), sección de contacto con WhatsApp.
+- **`/catalogo`** — catálogo completo con filtro por artista.
+- **`/admin`** — panel de administración.
+
+Tiene animaciones de aparición al hacer scroll (framer-motion) y hover en las
+tarjetas de obra, en la misma línea que el template de referencia.
+
+**Importante**: actualizá `NEXT_PUBLIC_WHATSAPP_NUMBER` en Vercel al número
+real de ventas antes de este deploy, si todavía tiene un valor de prueba.
+

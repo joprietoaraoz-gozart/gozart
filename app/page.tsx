@@ -1,15 +1,23 @@
 import { supabasePublic, type Obra } from "@/lib/supabase";
-import CatalogoGrid from "@/components/CatalogoGrid";
+import Navbar from "@/components/Navbar";
+import Hero from "@/components/Hero";
+import AboutSection from "@/components/AboutSection";
+import FeaturedWorks from "@/components/FeaturedWorks";
+import ContactSection from "@/components/ContactSection";
+import Footer from "@/components/Footer";
 
-export const revalidate = 0; // siempre datos frescos del catálogo
+export const revalidate = 0;
 
-async function getObras(): Promise<Obra[]> {
-  const { data, error } = await supabasePublic
+async function getObras(limit?: number): Promise<Obra[]> {
+  let query = supabasePublic
     .from("obras")
     .select("*")
     .order("orden", { ascending: true, nullsFirst: false })
-    .order("artista", { ascending: true });
+    .order("created_at", { ascending: false });
 
+  if (limit) query = query.limit(limit);
+
+  const { data, error } = await query;
   if (error) {
     console.error(error);
     return [];
@@ -18,31 +26,20 @@ async function getObras(): Promise<Obra[]> {
 }
 
 export default async function HomePage() {
-  const obras = await getObras();
+  const destacadas = await getObras(8);
+  const imagenesHero = destacadas
+    .map((o) => o.imagen_url)
+    .filter((u): u is string => Boolean(u))
+    .slice(0, 6);
 
   return (
     <main className="bg-cream min-h-screen">
-      <header className="px-6 md:px-12 pt-14 pb-10 md:pt-20 md:pb-16 text-center">
-        <h1 className="font-display text-charcoal leading-[0.85] tracking-logo text-6xl md:text-8xl">
-          goz
-          <br />
-          art
-        </h1>
-        <p className="font-sans text-graphite text-sm md:text-base mt-6">
-          obras que trascienden con el tiempo
-        </p>
-      </header>
-
-      <section className="px-6 md:px-12 pb-24 max-w-7xl mx-auto">
-        <CatalogoGrid obras={obras} />
-      </section>
-
-      <footer className="px-6 md:px-12 py-10 text-center border-t border-sand/60">
-        <p className="font-script text-charcoal text-2xl mb-1">Gozart</p>
-        <p className="font-sans text-xs text-stone">
-          Reproducciones de arte curadas y enmarcadas — CABA, Argentina
-        </p>
-      </footer>
+      <Navbar />
+      <Hero imagenes={imagenesHero} />
+      <AboutSection />
+      <FeaturedWorks obras={destacadas} />
+      <ContactSection />
+      <Footer />
     </main>
   );
 }

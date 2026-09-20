@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import type { Obra } from "@/lib/supabase";
 import ObraCard from "./ObraCard";
+import FadeIn from "./FadeIn";
 
 export default function CatalogoGrid({ obras }: { obras: Obra[] }) {
   const artistas = useMemo(() => {
@@ -46,8 +47,10 @@ export default function CatalogoGrid({ obras }: { obras: Obra[] }) {
         <p className="text-stone text-sm">No hay obras para mostrar todavía.</p>
       ) : (
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-10">
-          {visibles.map((obra) => (
-            <ObraCard key={obra.id} obra={obra} />
+          {visibles.map((obra, i) => (
+            <FadeIn key={obra.id} delay={Math.min((i % 8) * 0.06, 0.35)}>
+              <ObraCard obra={obra} />
+            </FadeIn>
           ))}
         </div>
       )}
