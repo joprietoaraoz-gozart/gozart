@@ -8,7 +8,7 @@ export default function FeaturedWorks({ obras }: { obras: Obra[] }) {
     <section id="obras" className="px-6 md:px-12 py-20 md:py-28 bg-sand/10">
       <div className="max-w-7xl mx-auto">
         <FadeIn className="text-center mb-14">
-          <p className="font-script text-charcoal text-3xl md:text-4xl mb-2">
+          <p className="font-display text-charcoal text-3xl md:text-4xl mb-2 tracking-logo">
             Obras destacadas
           </p>
           <p className="font-sans text-stone text-sm">

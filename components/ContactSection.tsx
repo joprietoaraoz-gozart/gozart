@@ -12,8 +12,8 @@ export default function ContactSection() {
     <section id="contacto" className="px-6 md:px-12 py-24 md:py-32">
       <div className="max-w-2xl mx-auto text-center">
         <FadeIn>
-          <p className="font-script text-charcoal text-3xl md:text-4xl mb-4">
-            Conversemos
+          <p className="font-display text-charcoal text-3xl md:text-4xl mb-4 tracking-logo">
+            Hablemos
           </p>
         </FadeIn>
         <FadeIn delay={0.1}>
