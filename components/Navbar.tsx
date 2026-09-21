@@ -50,7 +50,7 @@ export default function Navbar() {
           ))}
           <Link
             href="/catalogo"
-            className="border border-charcoal px-4 py-2 text-xs tracking-wide text-charcoal hover:bg-charcoal hover:text-cream transition-colors"
+            className="border border-charcoal px-4 py-2 text-xs tracking-wide text-charcoal rounded-md hover:bg-charcoal hover:text-cream transition-colors"
           >
             Ver catálogo
           </Link>

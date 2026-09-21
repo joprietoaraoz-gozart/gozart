@@ -23,7 +23,7 @@ export default function Hero({ imagenes }: { imagenes: string[] }) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-          className="font-sans text-graphite text-base md:text-lg mt-6"
+          className="font-script text-charcoal text-2xl md:text-3xl mt-6"
         >
           obras que trascienden con el tiempo
         </motion.p>
@@ -36,13 +36,13 @@ export default function Hero({ imagenes }: { imagenes: string[] }) {
         >
           <a
             href="#obras"
-            className="bg-charcoal text-cream px-6 py-3 text-sm tracking-wide hover:bg-graphite transition-colors"
+            className="bg-charcoal text-cream px-6 py-3 text-sm tracking-wide rounded-md hover:bg-graphite transition-colors"
           >
             Ver obras
           </a>
           <a
             href="#sobre"
-            className="border border-charcoal text-charcoal px-6 py-3 text-sm tracking-wide hover:bg-charcoal hover:text-cream transition-colors"
+            className="border border-charcoal text-charcoal px-6 py-3 text-sm tracking-wide rounded-md hover:bg-charcoal hover:text-cream transition-colors"
           >
             Sobre Gozart
           </a>
