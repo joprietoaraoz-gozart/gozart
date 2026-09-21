@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
+import Logo from "./Logo";
 
 export default function Hero({ imagenes }: { imagenes: string[] }) {
   const tira = imagenes.length > 0 ? [...imagenes, ...imagenes] : [];
@@ -9,16 +10,14 @@ export default function Hero({ imagenes }: { imagenes: string[] }) {
   return (
     <section className="relative pt-32 pb-16 md:pt-44 md:pb-24 overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 md:px-12 text-center">
-        <motion.h1
+        <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-          className="font-display text-charcoal leading-[0.85] tracking-logo text-7xl md:text-9xl"
+          className="text-charcoal"
         >
-          goz
-          <br />
-          art
-        </motion.h1>
+          <Logo className="h-28 md:h-48 w-auto mx-auto" />
+        </motion.div>
 
         <motion.p
           initial={{ opacity: 0, y: 20 }}

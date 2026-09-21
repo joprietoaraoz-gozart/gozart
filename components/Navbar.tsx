@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import Logo from "./Logo";
 
 const LINKS = [
   { href: "#sobre", label: "Sobre Gozart" },
@@ -32,11 +33,8 @@ export default function Navbar() {
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between h-16 md:h-20">
-        <Link
-          href="/"
-          className="font-display text-charcoal text-xl md:text-2xl tracking-logo"
-        >
-          gozart
+        <Link href="/" className="text-charcoal">
+          <Logo className="h-7 md:h-8 w-auto" />
         </Link>
 
         <nav className="hidden md:flex items-center gap-8 text-sm text-graphite">
