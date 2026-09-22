@@ -25,7 +25,7 @@ export default function WhatsAppModal({ obra }: { obra: Obra }) {
     <>
       <button
         onClick={() => setOpen(true)}
-        className="w-full border border-charcoal py-2.5 text-sm tracking-wide text-charcoal hover:bg-charcoal hover:text-cream transition-colors"
+        className="w-full border border-charcoal py-2.5 text-sm tracking-wide text-charcoal rounded-md hover:bg-charcoal hover:text-cream transition-colors"
       >
         Comprar
       </button>
@@ -36,7 +36,7 @@ export default function WhatsAppModal({ obra }: { obra: Obra }) {
           onClick={() => setOpen(false)}
         >
           <div
-            className="bg-cream max-w-sm w-full p-6 sm:p-8"
+            className="bg-cream max-w-sm w-full p-6 sm:p-8 rounded-md"
             onClick={(e) => e.stopPropagation()}
           >
             <h3 className="font-display text-2xl text-charcoal mb-1 tracking-logo">
@@ -53,7 +53,7 @@ export default function WhatsAppModal({ obra }: { obra: Obra }) {
                   return (
                     <label
                       key={opcion}
-                      className={`flex items-center justify-between border px-3 py-2 cursor-pointer text-sm ${
+                      className={`flex items-center justify-between border px-3 py-2 rounded-md cursor-pointer text-sm ${
                         tamanoElegido === opcion
                           ? "border-charcoal bg-sand/40"
                           : "border-sand"
@@ -83,7 +83,7 @@ export default function WhatsAppModal({ obra }: { obra: Obra }) {
               href={link}
               target="_blank"
               rel="noopener noreferrer"
-              className="block w-full text-center bg-charcoal text-cream py-3 text-sm tracking-wide hover:bg-graphite transition-colors"
+              className="block w-full text-center bg-charcoal text-cream py-3 text-sm tracking-wide rounded-md hover:bg-graphite transition-colors"
             >
               Continuar por WhatsApp
             </a>
