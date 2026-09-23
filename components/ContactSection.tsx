@@ -12,7 +12,7 @@ export default function ContactSection() {
     <section id="contacto" className="px-6 md:px-12 py-24 md:py-32">
       <div className="max-w-2xl mx-auto text-center">
         <FadeIn>
-          <p className="font-display text-charcoal text-3xl md:text-4xl mb-4 tracking-logo">
+          <p className="font-display text-3xl md:text-4xl mb-4 tracking-logo">
             Hablemos
           </p>
         </FadeIn>
@@ -27,7 +27,7 @@ export default function ContactSection() {
             href={link}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-block bg-charcoal text-cream px-8 py-3.5 text-sm tracking-wide rounded-md hover:bg-graphite transition-colors"
+            className="inline-block bg-charcoal text-cream px-8 py-3.5 text-sm rounded-md hover:bg-graphite transition-colors"
           >
             Escribir por WhatsApp
           </a>

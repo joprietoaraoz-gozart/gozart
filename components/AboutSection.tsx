@@ -6,7 +6,7 @@ export default function AboutSection() {
     <section id="sobre" className="px-6 md:px-12 py-20 md:py-28">
       <div className="max-w-4xl mx-auto text-center">
         <FadeIn>
-          <p className="font-display text-charcoal text-3xl md:text-4xl mb-6 tracking-logo">
+          <p className="font-display text-3xl md:text-4xl mb-6 tracking-logo">
             Quiénes somos
           </p>
         </FadeIn>

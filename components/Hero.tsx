@@ -39,13 +39,13 @@ export default function Hero({ imagenes }: { imagenes: string[] }) {
         >
           <a
             href="#obras"
-            className="bg-charcoal text-cream px-6 py-3 text-sm tracking-wide rounded-md hover:bg-graphite transition-colors"
+            className="bg-charcoal text-cream px-6 py-3 text-sm rounded-md hover:bg-graphite transition-colors"
           >
             Ver obras
           </a>
           <a
             href="#sobre"
-            className="border border-charcoal text-charcoal px-6 py-3 text-sm tracking-wide rounded-md hover:bg-charcoal hover:text-cream transition-colors"
+            className="border border-charcoal px-6 py-3 text-sm rounded-md hover:bg-charcoal hover:text-cream transition-colors"
           >
             Quiénes somos
           </a>

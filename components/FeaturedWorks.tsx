@@ -8,7 +8,7 @@ export default function FeaturedWorks({ obras }: { obras: Obra[] }) {
     <section id="obras" className="px-6 md:px-12 py-20 md:py-28 bg-sand/10">
       <div className="max-w-7xl mx-auto">
         <FadeIn className="text-center mb-14">
-          <p className="font-display text-charcoal text-3xl md:text-4xl mb-2 tracking-logo">
+          <p className="font-display text-3xl md:text-4xl mb-2 tracking-logo">
             Obras destacadas
           </p>
         </FadeIn>
@@ -30,7 +30,7 @@ export default function FeaturedWorks({ obras }: { obras: Obra[] }) {
         <FadeIn className="text-center">
           <Link
             href="/catalogo"
-            className="inline-block border border-charcoal text-charcoal px-7 py-3 text-sm tracking-wide rounded-md hover:bg-charcoal hover:text-cream transition-colors"
+            className="inline-block border border-charcoal text-charcoal px-7 py-3 text-sm rounded-md hover:bg-charcoal hover:text-cream transition-colors"
           >
             Ver catálogo completo
           </Link>
