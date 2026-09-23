@@ -12,6 +12,15 @@ body {
   color: #292a22;
 }
 
+@layer base {
+  .font-sans {
+    color: #484640;
+    letter-spacing: -0.08em;
+    line-height: 12px;
+    font-weight: 400;
+  }
+}
+
 /* Blanco puro solo se usa combinado con el cream, nunca solo — 
    por eso el body usa cream como base en vez de blanco. */
 
