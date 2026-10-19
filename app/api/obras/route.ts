@@ -30,6 +30,8 @@ export async function POST(req: NextRequest) {
       tamano2: body.tamano2 || null,
       precio2: body.precio2 || null,
       imagen_url: body.imagen_url || null,
+      imagenes: Array.isArray(body.imagenes) ? body.imagenes : [],
+      descripcion: body.descripcion || null,
       orden: body.orden ?? null,
     })
     .select()
