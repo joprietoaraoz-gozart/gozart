@@ -28,12 +28,11 @@ export default async function CatalogoPage() {
       <Navbar />
       <div className="pt-32 pb-10 px-6 md:px-12 text-center">
         <FadeIn>
-          <h1 className="font-display text-charcoal text-4xl md:text-6xl tracking-logo mb-3">
+          <h1 className="font-display text-charcoal text-4xl md:text-6xl tracking-logo">
             catálogo
           </h1>
-          <p className="font-sans text-graphite text-sm md:text-base">
-            {obras.length} obras curadas — expresionismo alemán y primera
-            abstracción
+          <p className="font-sans text-graphite text-sm md:text-base mt-4 max-w-md mx-auto leading-relaxed">
+            Cada cuadro se arma de manera artesanal, especialmente para vos. Tarda entre 15 a 20 días y llega listo para que lo cuelgues :)
           </p>
         </FadeIn>
       </div>
