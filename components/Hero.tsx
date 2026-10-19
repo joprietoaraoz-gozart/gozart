@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import TextReveal from "./TextReveal";
 import PulseImage from "./PulseImage";
-import Logo from "./Logo";
+import Image from "next/image";
 
 export default function Hero() {
   return (
@@ -72,7 +72,7 @@ export default function Hero() {
               className="relative mx-auto text-charcoal"
               style={{
                 width: "clamp(147px, 17vw, 231px)",
-                aspectRatio: "373/290",
+                aspectRatio: "191/150",
               }}
             >
               {/* "goz" (mitad de arriba del logo) entrando desde la izquierda */}
@@ -81,9 +81,8 @@ export default function Hero() {
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
                 className="absolute inset-0"
-                style={{ clipPath: "inset(0 0 45% 0)" }}
               >
-                <Logo className="w-full h-full" />
+                <Image src="/logo-parts/goz.svg" alt="Gozart" fill priority />
               </motion.div>
               {/* "art" (mitad de abajo del logo) entrando desde la derecha */}
               <motion.div
@@ -91,9 +90,8 @@ export default function Hero() {
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
                 className="absolute inset-0"
-                style={{ clipPath: "inset(55% 0 0 0)" }}
               >
-                <Logo className="w-full h-full" />
+                <Image src="/logo-parts/art.svg" alt="" fill priority />
               </motion.div>
             </div>
 
