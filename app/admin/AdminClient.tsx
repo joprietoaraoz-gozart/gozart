@@ -15,6 +15,8 @@ type FormState = {
   tamano2: string;
   precio2: string;
   imagen_url: string;
+  imagenes: string[];
+  descripcion: string;
 };
 
 const EMPTY: FormState = {
@@ -26,6 +28,8 @@ const EMPTY: FormState = {
   tamano2: "",
   precio2: "",
   imagen_url: "",
+  imagenes: [],
+  descripcion: "",
 };
 
 export default function AdminClient({
@@ -54,22 +58,54 @@ export default function AdminClient({
       tamano2: o.tamano2 ?? "",
       precio2: o.precio2 != null ? String(o.precio2) : "",
       imagen_url: o.imagen_url ?? "",
+      imagenes: o.imagenes ?? [],
+      descripcion: o.descripcion ?? "",
     });
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
-  async function subirImagen(file: File) {
-    setSubiendo(true);
+  async function subirArchivo(file: File): Promise<string | null> {
     const fd = new FormData();
     fd.append("file", file);
     const res = await fetch("/api/upload", { method: "POST", body: fd });
     const data = await res.json();
-    setSubiendo(false);
-    if (res.ok) {
-      setForm((f) => ({ ...f, imagen_url: data.url }));
-    } else {
-      alert("Error al subir la imagen: " + data.error);
+    if (!res.ok) {
+      alert(`Error al subir ${file.name}: ${data.error}`);
+      return null;
     }
+    return data.url as string;
+  }
+
+  // Foto principal (la que se ve en la grilla del catálogo)
+  async function subirImagen(file: File) {
+    setSubiendo(true);
+    const url = await subirArchivo(file);
+    setSubiendo(false);
+    if (url) setForm((f) => ({ ...f, imagen_url: url }));
+  }
+
+  // Fotos adicionales (se pueden elegir varias a la vez)
+  async function subirAdicionales(files: FileList) {
+    setSubiendo(true);
+    for (const file of Array.from(files)) {
+      const url = await subirArchivo(file);
+      if (url) setForm((f) => ({ ...f, imagenes: [...f.imagenes, url] }));
+    }
+    setSubiendo(false);
+  }
+
+  function quitarAdicional(url: string) {
+    setForm((f) => ({ ...f, imagenes: f.imagenes.filter((u) => u !== url) }));
+  }
+
+  function moverAdicional(i: number, dir: -1 | 1) {
+    setForm((f) => {
+      const arr = [...f.imagenes];
+      const j = i + dir;
+      if (j < 0 || j >= arr.length) return f;
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+      return { ...f, imagenes: arr };
+    });
   }
 
   async function guardar(e: React.FormEvent) {
@@ -85,6 +121,8 @@ export default function AdminClient({
       tamano2: form.tamano2 || null,
       precio2: form.precio2 ? Number(form.precio2) : null,
       imagen_url: form.imagen_url,
+      imagenes: form.imagenes,
+      descripcion: form.descripcion,
     };
 
     const res = await fetch(form.id ? `/api/obras/${form.id}` : "/api/obras", {
@@ -198,6 +236,15 @@ export default function AdminClient({
           className="border border-sand bg-cream px-3 py-2 text-sm outline-none focus:border-charcoal"
         />
 
+        <textarea
+          placeholder="Descripción de la obra (opcional)"
+          value={form.descripcion}
+          onChange={(e) => setForm({ ...form, descripcion: e.target.value })}
+          rows={4}
+          className="col-span-full border border-sand bg-cream px-3 py-2 text-sm outline-none focus:border-charcoal leading-relaxed"
+        />
+
+        <p className="col-span-full text-xs text-stone -mb-2">Foto principal</p>
         <div className="col-span-full flex items-center gap-4">
           <input
             type="file"
@@ -221,11 +268,43 @@ export default function AdminClient({
           )}
         </div>
 
+        <p className="col-span-full text-xs text-stone -mb-2">
+          Fotos adicionales (podés elegir varias juntas)
+        </p>
+        <div className="col-span-full">
+          <input
+            type="file"
+            accept="image/*"
+            multiple
+            onChange={(e) => {
+              if (e.target.files?.length) subirAdicionales(e.target.files);
+              e.target.value = "";
+            }}
+            className="text-xs"
+          />
+          {form.imagenes.length > 0 && (
+            <div className="flex flex-wrap gap-3 mt-3">
+              {form.imagenes.map((url, i) => (
+                <div key={url} className="flex flex-col items-center gap-1">
+                  <div className="relative w-16 h-16 bg-sand/30">
+                    <Image src={url} alt={`foto ${i + 2}`} fill className="object-cover" />
+                  </div>
+                  <div className="flex gap-2 text-xs text-stone">
+                    <button type="button" onClick={() => moverAdicional(i, -1)} aria-label="Mover a la izquierda">←</button>
+                    <button type="button" onClick={() => quitarAdicional(url)} className="text-red-800" aria-label="Quitar foto">✕</button>
+                    <button type="button" onClick={() => moverAdicional(i, 1)} aria-label="Mover a la derecha">→</button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+
         <div className="col-span-full flex gap-3 mt-2">
           <button
             type="submit"
             disabled={guardando || subiendo}
-            className="bg-charcoal text-cream px-5 py-2.5 text-sm hover:bg-graphite transition-colors disabled:opacity-50"
+            className="bg-charcoal text-cream px-5 py-2.5 text-sm rounded-md hover:bg-graphite transition-colors disabled:opacity-50"
           >
             {guardando ? "Guardando..." : form.id ? "Guardar cambios" : "Agregar obra"}
           </button>
