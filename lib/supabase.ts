@@ -23,6 +23,8 @@ export type Obra = {
   tamano2: string | null;
   precio2: number | null;
   imagen_url: string | null;
+  imagenes: string[] | null;
+  descripcion: string | null;
   orden: number | null;
   created_at: string;
 };
