@@ -1,4 +1,4 @@
- import Link from "next/link";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { supabasePublic, type Obra } from "@/lib/supabase";
 import Navbar from "@/components/Navbar";
@@ -90,8 +90,7 @@ export default async function ObraPage({ params }: { params: { id: string } }) {
             <WhatsAppModal obra={obra} />
 
             <p className="font-sans text-xs text-stone leading-relaxed mt-6">
-              Elaborado a pedido: 10 a 15 días hábiles (impresión y enmarcado
-              artesanal).
+            Elaborado a pedido: 15 a 20 días hábiles (impresión y enmarcado artesanal).
             </p>
           </FadeIn>
         </div>
