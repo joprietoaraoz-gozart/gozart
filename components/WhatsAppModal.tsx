@@ -21,6 +21,11 @@ export default function WhatsAppModal({ obra }: { obra: Obra }) {
 
   const link = `https://wa.me/${WHATSAPP_NUMBER}?text=${mensaje}`;
 
+  const mensajePersonalizado = encodeURIComponent(
+    `Hola! Me interesa ${obra.titulo} de ${obra.artista}, con un enmarcado personalizado.`
+  );
+  const linkPersonalizado = `https://wa.me/${WHATSAPP_NUMBER}?text=${mensajePersonalizado}`;
+
   return (
     <>
       <button
@@ -87,6 +92,19 @@ export default function WhatsAppModal({ obra }: { obra: Obra }) {
             >
               Continuar por WhatsApp
             </a>
+
+            <p className="font-sans text-xs text-stone text-center leading-relaxed mt-4">
+              Si querés otro tamaño o marco,{" "}
+              <a
+                href={linkPersonalizado}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline text-graphite hover:text-charcoal"
+              >
+                escribinos
+              </a>{" "}
+              y lo armamos de forma personalizada.
+            </p>
 
             <button
               onClick={() => setOpen(false)}
