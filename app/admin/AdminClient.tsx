@@ -53,7 +53,7 @@ export default function AdminClient({
       artista: o.artista,
       titulo: o.titulo,
       anio: o.anio ?? "",
-      tamano1: o.tamano1,
+      tamano1: o.tamano1 ?? "",
       precio1: String(o.precio1 ?? ""),
       tamano2: o.tamano2 ?? "",
       precio2: o.precio2 != null ? String(o.precio2) : "",
@@ -116,8 +116,8 @@ export default function AdminClient({
       artista: form.artista,
       titulo: form.titulo,
       anio: form.anio,
-      tamano1: form.tamano1,
-      precio1: Number(form.precio1),
+      tamano1: form.tamano1 || null,
+      precio1: form.precio1 ? Number(form.precio1) : null,
       tamano2: form.tamano2 || null,
       precio2: form.precio2 ? Number(form.precio2) : null,
       imagen_url: form.imagen_url,
@@ -208,19 +208,17 @@ export default function AdminClient({
         <div />
 
         <input
-          placeholder="Tamaño 1 (ej. 30x40)"
+          placeholder="Tamaño 1 (ej. 30 x 40 cm)"
           value={form.tamano1}
           onChange={(e) => setForm({ ...form, tamano1: e.target.value })}
           className="border border-sand bg-cream px-3 py-2 text-sm outline-none focus:border-charcoal"
-          required
         />
         <input
-          placeholder="Precio 1"
+          placeholder="Precio 1 (vacío = a consultar)"
           type="number"
           value={form.precio1}
           onChange={(e) => setForm({ ...form, precio1: e.target.value })}
           className="border border-sand bg-cream px-3 py-2 text-sm outline-none focus:border-charcoal"
-          required
         />
         <input
           placeholder="Tamaño 2 (opcional)"
@@ -343,7 +341,7 @@ export default function AdminClient({
             <div className="flex-1 min-w-0">
               <p className="text-sm text-charcoal truncate">{o.titulo}</p>
               <p className="text-xs text-stone truncate">
-                {o.artista} · {o.tamano1} · ${o.precio1}
+                {o.artista} · {o.tamano1 ?? "sin tamaño"} · {o.precio1 != null ? `$${o.precio1}` : "sin precio"}
                 {o.tamano2 ? ` / ${o.tamano2} · $${o.precio2}` : ""}
               </p>
             </div>
