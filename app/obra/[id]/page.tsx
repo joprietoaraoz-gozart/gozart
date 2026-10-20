@@ -74,15 +74,23 @@ export default async function ObraPage({ params }: { params: { id: string } }) {
             )}
 
             <div className="border-t border-sand pt-6 mb-8 space-y-2">
-              <p className="font-sans text-xs uppercase text-stone mb-3">Tamaños</p>
-              <p className="font-sans text-sm text-charcoal flex justify-between">
-                <span>{obra.tamano1} cm</span>
-                <span>{precio(obra.precio1)}</span>
-              </p>
-              {obra.tamano2 && obra.precio2 != null && (
-                <p className="font-sans text-sm text-charcoal flex justify-between">
-                  <span>{obra.tamano2} cm</span>
-                  <span>{precio(obra.precio2)}</span>
+              {obra.precio1 != null ? (
+                <>
+                  <p className="font-sans text-xs uppercase text-stone mb-3">Tamaños</p>
+                  <p className="font-sans text-sm text-charcoal flex justify-between">
+                    <span>{obra.tamano1}</span>
+                    <span>{precio(obra.precio1)}</span>
+                  </p>
+                  {obra.tamano2 && obra.precio2 != null && (
+                    <p className="font-sans text-sm text-charcoal flex justify-between">
+                      <span>{obra.tamano2}</span>
+                      <span>{precio(obra.precio2)}</span>
+                    </p>
+                  )}
+                </>
+              ) : (
+                <p className="font-sans text-sm text-charcoal">
+                  {obra.tamano1 ? `${obra.tamano1} · ` : ""}Precio a consultar
                 </p>
               )}
             </div>
