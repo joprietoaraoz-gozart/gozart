@@ -15,11 +15,12 @@ export const supabaseAdmin = createClient(
 
 export type Obra = {
   id: string;
+  codigo: string | null;
   artista: string;
   titulo: string;
   anio: string | null;
-  tamano1: string;
-  precio1: number;
+  tamano1: string | null;
+  precio1: number | null;
   tamano2: string | null;
   precio2: number | null;
   imagen_url: string | null;
