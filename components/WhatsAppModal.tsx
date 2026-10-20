@@ -10,7 +10,7 @@ export default function WhatsAppModal({ obra }: { obra: Obra }) {
   const [tamanoElegido, setTamanoElegido] = useState<"1" | "2">("1");
 
   const tamano = tamanoElegido === "1" ? obra.tamano1 : obra.tamano2!;
-  const precio = tamanoElegido === "1" ? obra.precio1 : obra.precio2!;
+  const precio = (tamanoElegido === "1" ? obra.precio1 : obra.precio2) ?? 0;
 
   const mensaje = encodeURIComponent(
     `Hola! Quiero consultar por esta obra de Gozart:\n\n` +
@@ -25,6 +25,22 @@ export default function WhatsAppModal({ obra }: { obra: Obra }) {
     `Hola! Me interesa ${obra.titulo} de ${obra.artista}, con un enmarcado personalizado.`
   );
   const linkPersonalizado = `https://wa.me/${WHATSAPP_NUMBER}?text=${mensajePersonalizado}`;
+
+  if (obra.precio1 == null) {
+    const consulta = encodeURIComponent(
+      `Hola! Quiero consultar por esta obra de Gozart:\n\n${obra.titulo} — ${obra.artista}`
+    );
+    return (
+      <a
+        href={`https://wa.me/${WHATSAPP_NUMBER}?text=${consulta}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="block w-full text-center border border-charcoal py-2.5 text-sm text-charcoal rounded-md hover:bg-charcoal hover:text-cream transition-colors"
+      >
+        Consultar
+      </a>
+    );
+  }
 
   return (
     <>
@@ -54,7 +70,7 @@ export default function WhatsAppModal({ obra }: { obra: Obra }) {
                 <p className="text-xs uppercase text-stone mb-2">Elegí un tamaño</p>
                 {(["1", "2"] as const).map((opcion) => {
                   const t = opcion === "1" ? obra.tamano1 : obra.tamano2!;
-                  const p = opcion === "1" ? obra.precio1 : obra.precio2!;
+                  const p = (opcion === "1" ? obra.precio1 : obra.precio2) ?? 0;
                   return (
                     <label
                       key={opcion}
@@ -80,7 +96,7 @@ export default function WhatsAppModal({ obra }: { obra: Obra }) {
               </div>
             ) : (
               <p className="mb-5 text-sm text-charcoal">
-                {obra.tamano1} — ${obra.precio1.toLocaleString("es-AR")}
+                {obra.tamano1} — ${precio.toLocaleString("es-AR")}
               </p>
             )}
 

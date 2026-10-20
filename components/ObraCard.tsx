@@ -4,9 +4,12 @@ import type { Obra } from "@/lib/supabase";
 import WhatsAppModal from "./WhatsAppModal";
 
 export default function ObraCard({ obra }: { obra: Obra }) {
-  const precioDesde = obra.precio2
-    ? Math.min(obra.precio1, obra.precio2)
-    : obra.precio1;
+  const precioDesde =
+    obra.precio1 == null
+      ? null
+      : obra.precio2
+      ? Math.min(obra.precio1, obra.precio2)
+      : obra.precio1;
   const href = `/obra/${obra.id}`;
 
   return (
@@ -37,7 +40,9 @@ export default function ObraCard({ obra }: { obra: Obra }) {
         {obra.anio ? ` · ${obra.anio}` : ""}
       </p>
       <p className="font-sans text-xs text-graphite mb-3">
-        {obra.tamano2 ? "Desde " : ""}${precioDesde.toLocaleString("es-AR")}
+        {precioDesde == null
+          ? "Precio a consultar"
+          : `${obra.tamano2 ? "Desde " : ""}$${precioDesde.toLocaleString("es-AR")}`}
       </p>
 
       <WhatsAppModal obra={obra} />
