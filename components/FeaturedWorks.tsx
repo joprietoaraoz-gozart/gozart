@@ -9,7 +9,7 @@ export default function FeaturedWorks({ obras }: { obras: Obra[] }) {
       <div className="max-w-7xl mx-auto">
         <FadeIn className="text-center mb-14">
           <p className="font-display text-3xl md:text-4xl mb-2 tracking-logo">
-            Obras destacadas
+            Obras
           </p>
         </FadeIn>
 
@@ -32,7 +32,7 @@ export default function FeaturedWorks({ obras }: { obras: Obra[] }) {
             href="/catalogo"
             className="inline-block border border-charcoal text-charcoal px-7 py-3 text-sm rounded-md hover:bg-charcoal hover:text-cream transition-colors"
           >
-            Ver catálogo completo
+            Ver más obras
           </Link>
         </FadeIn>
       </div>

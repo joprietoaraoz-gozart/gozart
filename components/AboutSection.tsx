@@ -7,7 +7,7 @@ export default function AboutSection() {
       <div className="max-w-4xl mx-auto text-center">
         <FadeIn>
           <p className="font-display text-3xl md:text-4xl mb-6 tracking-logo">
-            Quiénes somos
+            Arte para habitar
           </p>
         </FadeIn>
 

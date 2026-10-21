@@ -4,7 +4,7 @@ const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "";
 
 export default function ContactSection() {
   const mensaje = encodeURIComponent(
-    "Hola! Quiero consultar sobre el catálogo de Gozart."
+    "Hola! Quiero consultar sobre las obras de Gozart."
   );
   const link = `https://wa.me/${WHATSAPP_NUMBER}?text=${mensaje}`;
 
@@ -13,7 +13,7 @@ export default function ContactSection() {
       <div className="max-w-2xl mx-auto text-center">
         <FadeIn>
           <p className="font-display text-3xl md:text-4xl mb-4 tracking-logo">
-            Hablemos
+            Contacto
           </p>
         </FadeIn>
         <FadeIn delay={0.1}>
@@ -29,7 +29,7 @@ export default function ContactSection() {
             rel="noopener noreferrer"
             className="inline-block bg-charcoal text-cream px-8 py-3.5 text-sm rounded-md hover:bg-graphite transition-colors"
           >
-            Escribir por WhatsApp
+            Escribinos
           </a>
         </FadeIn>
       </div>

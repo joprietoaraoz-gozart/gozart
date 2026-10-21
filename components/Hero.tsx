@@ -118,7 +118,7 @@ export default function Hero() {
           href="#sobre"
           className="border border-charcoal px-6 py-3 text-sm rounded-md hover:bg-charcoal hover:text-cream transition-colors"
         >
-          Quiénes somos
+          Arte para habitar
         </a>
       </motion.div>
     </section>

@@ -6,7 +6,6 @@ import { usePathname } from "next/navigation";
 import Logo from "./Logo";
 
 const LINKS = [
-  { href: "#sobre", label: "Quiénes somos" },
   { href: "#obras", label: "Obras" },
   { href: "#contacto", label: "Contacto" },
 ];
@@ -48,10 +47,6 @@ export default function Navbar() {
               <span className="absolute left-0 -bottom-0.5 h-px w-0 bg-charcoal transition-all duration-300 group-hover:w-full" />
             </a>
           ))}
-          <Link href="/catalogo" className="relative group py-1">
-            Ver catálogo
-            <span className="absolute left-0 -bottom-0.5 h-px w-0 bg-charcoal transition-all duration-300 group-hover:w-full" />
-          </Link>
         </nav>
 
         <button
@@ -70,9 +65,6 @@ export default function Navbar() {
               {l.label}
             </a>
           ))}
-          <Link href="/catalogo" onClick={() => setOpen(false)} className="text-charcoal">
-            Ver catálogo
-          </Link>
         </div>
       )}
     </header>
