@@ -31,11 +31,14 @@ export default function ObraCard({ obra }: { obra: Obra }) {
       </Link>
 
       <Link href={href}>
-        <h3 className="font-sans text-sm text-charcoal leading-tight hover:underline">
+        <h3
+          className="font-sans text-sm text-charcoal leading-tight hover:underline line-clamp-2 min-h-[2.5em]"
+          title={obra.titulo}
+        >
           {obra.titulo}
         </h3>
       </Link>
-      <p className="font-sans text-xs text-stone mb-1">
+      <p className="font-sans text-xs text-stone mb-1 truncate">
         {obra.artista}
         {obra.anio ? ` · ${obra.anio}` : ""}
       </p>
