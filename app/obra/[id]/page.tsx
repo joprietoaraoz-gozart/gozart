@@ -71,7 +71,7 @@ export default async function ObraPage({ params }: { params: { id: string } }) {
           href="/catalogo"
           className="font-sans text-xs text-stone hover:text-charcoal inline-block mb-8"
         >
-          ← Volver al catálogo
+          ← Volver a obras
         </Link>
 
         <div className="grid md:grid-cols-2 gap-10 md:gap-16 items-start">
