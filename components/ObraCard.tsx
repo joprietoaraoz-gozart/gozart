@@ -1,15 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import type { Obra } from "@/lib/supabase";
-import WhatsAppModal from "./WhatsAppModal";
 
 export default function ObraCard({ obra }: { obra: Obra }) {
-  const precioDesde =
-    obra.precio1 == null
-      ? null
-      : obra.precio2
-      ? Math.min(obra.precio1, obra.precio2)
-      : obra.precio1;
   const href = `/obra/${obra.id}`;
 
   return (
@@ -43,12 +36,17 @@ export default function ObraCard({ obra }: { obra: Obra }) {
         {obra.anio ? ` · ${obra.anio}` : ""}
       </p>
       <p className="font-sans text-xs text-graphite mb-3">
-        {precioDesde == null
+        {obra.precio1 == null
           ? "Precio a consultar"
-          : `${obra.tamano2 ? "Desde " : ""}$${precioDesde.toLocaleString("es-AR")}`}
+          : `$${obra.precio1.toLocaleString("es-AR")}`}
       </p>
 
-      <WhatsAppModal obra={obra} />
+      <Link
+        href={href}
+        className="block w-full text-center border border-charcoal py-2.5 text-sm text-charcoal rounded-md hover:bg-charcoal hover:text-cream transition-colors"
+      >
+        Ver obra
+      </Link>
     </div>
   );
 }
