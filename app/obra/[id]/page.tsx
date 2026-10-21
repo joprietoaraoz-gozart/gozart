@@ -5,9 +5,12 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import FadeIn from "@/components/FadeIn";
 import ObraGaleria from "@/components/ObraGaleria";
-import WhatsAppModal from "@/components/WhatsAppModal";
 
 export const revalidate = 0;
+
+const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "";
+const wa = (texto: string) =>
+  `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(texto)}`;
 
 async function getObra(id: string): Promise<Obra | null> {
   const { data, error } = await supabasePublic
@@ -27,7 +30,8 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
   if (!obra) return { title: "Obra no encontrada — Gozart" };
   return {
     title: `${obra.titulo} — ${obra.artista} | Gozart`,
-    description: obra.descripcion ?? `${obra.titulo}, de ${obra.artista}. Reproducción enmarcada.`,
+    description:
+      obra.descripcion ?? `${obra.titulo}, de ${obra.artista}. Reproducción enmarcada.`,
   };
 }
 
@@ -39,6 +43,18 @@ export default async function ObraPage({ params }: { params: { id: string } }) {
 
   const fotos = [obra.imagen_url, ...(obra.imagenes ?? [])].filter(
     (u): u is string => Boolean(u)
+  );
+
+  const obraTxt = `${obra.titulo} de ${obra.artista}`;
+  const linkComprar =
+    obra.precio1 != null
+      ? wa(
+          `Hola! Quiero comprar ${obraTxt} tal cual está publicada` +
+            (obra.tamano1 ? ` (${obra.tamano1} – ${precio(obra.precio1)}).` : ` (${precio(obra.precio1)}).`)
+        )
+      : wa(`Hola! Quiero consultar el precio de ${obraTxt}` + (obra.tamano1 ? ` (${obra.tamano1}).` : "."));
+  const linkPersonalizado = wa(
+    `Hola! Me interesa ${obraTxt}, pero quiero armarlo de manera personalizada.`
   );
 
   return (
@@ -68,38 +84,48 @@ export default async function ObraPage({ params }: { params: { id: string } }) {
             </p>
 
             {obra.descripcion && (
-              <div className="font-sans text-sm text-graphite leading-relaxed whitespace-pre-line mb-8">
+              <p className="font-sans text-sm text-graphite leading-relaxed whitespace-pre-line mb-6">
                 {obra.descripcion}
-              </div>
+              </p>
             )}
 
-            <div className="border-t border-sand pt-6 mb-8 space-y-2">
-              {obra.precio1 != null ? (
-                <>
-                  <p className="font-sans text-xs uppercase text-stone mb-3">Tamaños</p>
-                  <p className="font-sans text-sm text-charcoal flex justify-between">
-                    <span>{obra.tamano1}</span>
-                    <span>{precio(obra.precio1)}</span>
-                  </p>
-                  {obra.tamano2 && obra.precio2 != null && (
-                    <p className="font-sans text-sm text-charcoal flex justify-between">
-                      <span>{obra.tamano2}</span>
-                      <span>{precio(obra.precio2)}</span>
-                    </p>
-                  )}
-                </>
-              ) : (
-                <p className="font-sans text-sm text-charcoal">
-                  {obra.tamano1 ? `${obra.tamano1} · ` : ""}Precio a consultar
+            <div className="border-t border-sand pt-6 pb-6">
+              {obra.tamano1 && (
+                <p className="font-sans text-sm text-charcoal mb-1">
+                  <span className="text-stone">Tamaño:</span> {obra.tamano1}
                 </p>
               )}
+              <p className="font-sans text-lg text-charcoal mb-5">
+                {obra.precio1 != null ? precio(obra.precio1) : "Precio a consultar"}
+              </p>
+              <a
+                href={linkComprar}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block w-full text-center bg-charcoal text-cream py-3 text-sm rounded-md hover:bg-graphite transition-colors"
+              >
+                {obra.precio1 != null ? "Comprar" : "Consultar"}
+              </a>
+              <p className="font-sans text-xs text-stone leading-relaxed mt-3">
+                Elaborado a pedido: 15 a 20 días hábiles (impresión y enmarcado artesanal).
+              </p>
             </div>
 
-            <WhatsAppModal obra={obra} />
-
-            <p className="font-sans text-xs text-stone leading-relaxed mt-6">
-            Elaborado a pedido: 15 a 20 días hábiles (impresión y enmarcado artesanal).
-            </p>
+            <div className="border-t border-sand pt-6">
+              <p className="font-sans text-xs uppercase text-stone mb-2">Opción personalizada</p>
+              <p className="font-sans text-sm text-graphite leading-relaxed mb-4">
+                Si querés modificar algo del armado del cuadro, contactate con nosotros y lo
+                hacemos de manera personalizada!
+              </p>
+              <a
+                href={linkPersonalizado}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block w-full text-center border border-charcoal py-3 text-sm text-charcoal rounded-md hover:bg-charcoal hover:text-cream transition-colors"
+              >
+                Escribinos
+              </a>
+            </div>
           </FadeIn>
         </div>
       </section>
