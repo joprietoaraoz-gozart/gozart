@@ -1,44 +1,151 @@
+import Link from "next/link";
+import { notFound } from "next/navigation";
 import { supabasePublic, type Obra } from "@/lib/supabase";
 import Navbar from "@/components/Navbar";
-import CatalogoGrid from "@/components/CatalogoGrid";
 import Footer from "@/components/Footer";
 import FadeIn from "@/components/FadeIn";
+import ObraGaleria from "@/components/ObraGaleria";
 
 export const revalidate = 0;
 
-async function getObras(): Promise<Obra[]> {
+const RECARGO_PERSONALIZADO = 0.15;
+const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "";
+const wa = (texto: string) =>
+  `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(texto)}`;
+
+async function getObra(id: string): Promise<Obra | null> {
   const { data, error } = await supabasePublic
     .from("obras")
     .select("*")
-    .order("orden", { ascending: true, nullsFirst: false })
-    .order("artista", { ascending: true });
-
+    .eq("id", id)
+    .maybeSingle();
   if (error) {
     console.error(error);
-    return [];
+    return null;
   }
-  return data ?? [];
+  return data;
 }
 
-export default async function CatalogoPage() {
-  const obras = await getObras();
+export async function generateMetadata({ params }: { params: { id: string } }) {
+  const obra = await getObra(params.id);
+  if (!obra) return { title: "Obra no encontrada — Gozart" };
+  return {
+    title: `${obra.titulo} — ${obra.artista} | Gozart`,
+    description:
+      obra.descripcion ?? `${obra.titulo}, de ${obra.artista}. Reproducción enmarcada.`,
+  };
+}
+
+const precio = (n: number) => `$${n.toLocaleString("es-AR")}`;
+
+export default async function ObraPage({ params }: { params: { id: string } }) {
+  const obra = await getObra(params.id);
+  if (!obra) notFound();
+
+  const fotos = [obra.imagen_url, ...(obra.imagenes ?? [])].filter(
+    (u): u is string => Boolean(u)
+  );
+
+  // Personalizado: mismo cálculo que la pestaña "Pedidos" (+15% sobre el precio de lista)
+  const precioPersonalizado =
+    obra.precio1 != null ? Math.round(obra.precio1 * (1 + RECARGO_PERSONALIZADO)) : null;
+
+  const obraTxt = `${obra.titulo} de ${obra.artista}`;
+  const linkComprar =
+    obra.precio1 != null
+      ? wa(
+          `Hola! Quiero comprar ${obraTxt} tal cual está publicada` +
+            (obra.tamano1 ? ` (${obra.tamano1} – ${precio(obra.precio1)}).` : ` (${precio(obra.precio1)}).`)
+        )
+      : wa(`Hola! Quiero consultar el precio de ${obraTxt}` + (obra.tamano1 ? ` (${obra.tamano1}).` : "."));
+  const linkPersonalizado = wa(
+    `Hola! Me interesa ${obraTxt}, pero quiero armarlo de manera personalizada.`
+  );
 
   return (
     <main className="bg-cream min-h-screen">
       <Navbar />
-      <div className="pt-32 pb-10 px-6 md:px-12 text-center">
-        <FadeIn>
-          <h1 className="font-display text-charcoal text-4xl md:text-6xl tracking-logo">
-            catálogo
-          </h1>
-          <p className="font-sans text-graphite text-sm md:text-base mt-4 max-w-md mx-auto leading-relaxed">
-            Cada cuadro se arma de manera artesanal, especialmente para vos. Tarda entre 15 a 20 días y llega listo para que lo cuelgues :)
-          </p>
-        </FadeIn>
-      </div>
 
-      <section className="px-6 md:px-12 pb-24 max-w-7xl mx-auto">
-        <CatalogoGrid obras={obras} />
+      <section className="pt-28 md:pt-32 pb-20 md:pb-28 px-6 md:px-12 max-w-6xl mx-auto">
+        <Link
+          href="/catalogo"
+          className="font-sans text-xs text-stone hover:text-charcoal inline-block mb-8"
+        >
+          ← Volver a obras
+        </Link>
+
+        <div className="grid md:grid-cols-2 gap-10 md:gap-16 items-start">
+          <FadeIn>
+            <ObraGaleria fotos={fotos} alt={`${obra.titulo} — ${obra.artista}`} />
+          </FadeIn>
+
+          <FadeIn className="md:sticky md:top-28">
+            <h1 className="font-display text-charcoal text-3xl md:text-4xl tracking-logo mb-3">
+              {obra.titulo}
+            </h1>
+            <p className="font-sans text-sm text-stone mb-8">
+              {obra.artista}
+              {obra.anio ? ` · ${obra.anio}` : ""}
+            </p>
+
+            {obra.descripcion && (
+              <p className="font-sans text-sm text-graphite leading-relaxed whitespace-pre-line mb-6">
+                {obra.descripcion}
+              </p>
+            )}
+
+            <div className="border-t border-sand pt-6 pb-6">
+              <dl className="grid grid-cols-[72px_1fr] gap-y-2 items-baseline mb-5">
+                {obra.tamano1 && (
+                  <>
+                    <dt className="font-sans text-xs uppercase text-stone">Tamaño</dt>
+                    <dd className="font-sans text-sm text-graphite">{obra.tamano1}</dd>
+                  </>
+                )}
+                <dt className="font-sans text-xs uppercase text-stone">Precio</dt>
+                <dd className="font-sans text-sm text-graphite">
+                  {obra.precio1 != null ? precio(obra.precio1) : "A consultar"}
+                </dd>
+              </dl>
+              <a
+                href={linkComprar}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block w-full text-center bg-charcoal text-cream py-3 text-sm rounded-md hover:bg-graphite transition-colors"
+              >
+                {obra.precio1 != null ? "Comprar" : "Consultar"}
+              </a>
+            </div>
+
+            <div className="border-t border-sand pt-6 pb-6">
+              <p className="font-sans text-xs uppercase text-stone mb-2">Opción personalizada</p>
+              <p className="font-sans text-sm text-graphite leading-relaxed mb-4">
+                Si querés modificar algo del armado del cuadro, contactate con nosotros y lo
+                hacemos de manera personalizada!
+              </p>
+              {precioPersonalizado != null && (
+                <dl className="grid grid-cols-[72px_1fr] gap-y-2 items-baseline mb-5">
+                  <dt className="font-sans text-xs uppercase text-stone">Precio</dt>
+                  <dd className="font-sans text-sm text-graphite">
+                    Desde {precio(precioPersonalizado)}
+                  </dd>
+                </dl>
+              )}
+              <a
+                href={linkPersonalizado}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block w-full text-center border border-charcoal py-3 text-sm text-charcoal rounded-md hover:bg-charcoal hover:text-cream transition-colors"
+              >
+                Escribinos
+              </a>
+            </div>
+
+            <p className="border-t border-sand pt-6 font-sans text-xs text-stone leading-relaxed">
+              Tiempo de elaboración: 15 a 20 días (impresión y enmarcado artesanal).
+            </p>
+          </FadeIn>
+        </div>
       </section>
 
       <Footer />
