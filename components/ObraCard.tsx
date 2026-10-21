@@ -9,7 +9,7 @@ export default function ObraCard({ obra }: { obra: Obra }) {
     <div className="flex flex-col group">
       <Link
         href={href}
-        className="relative aspect-[4/5] w-full bg-sand/30 mb-3 overflow-hidden block"
+        className="relative aspect-[4/5] w-full bg-sand/20 mb-3 overflow-hidden rounded-md block"
         aria-label={`Ver ${obra.titulo}`}
       >
         {obra.imagen_url && (
@@ -17,7 +17,7 @@ export default function ObraCard({ obra }: { obra: Obra }) {
             src={obra.imagen_url}
             alt={`${obra.titulo} — ${obra.artista}`}
             fill
-            className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+            className="object-contain p-4 md:p-6 transition-transform duration-700 ease-out group-hover:scale-105"
             sizes="(max-width: 768px) 50vw, 25vw"
           />
         )}

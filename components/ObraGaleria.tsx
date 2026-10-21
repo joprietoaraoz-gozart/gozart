@@ -37,7 +37,7 @@ export default function ObraGaleria({
   }, [open, mover]);
 
   if (fotos.length === 0) {
-    return <div className="aspect-[4/5] w-full bg-sand/30" />;
+    return <div className="aspect-[4/5] w-full bg-sand/20 rounded-md" />;
   }
 
   return (
@@ -45,7 +45,7 @@ export default function ObraGaleria({
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className="relative aspect-[4/5] w-full bg-sand/20 overflow-hidden cursor-zoom-in block"
+        className="relative aspect-[4/5] w-full bg-sand/20 overflow-hidden rounded-md cursor-zoom-in block"
         aria-label="Ampliar imagen"
       >
         <AnimatePresence mode="wait">
@@ -62,7 +62,7 @@ export default function ObraGaleria({
               alt={alt}
               fill
               priority
-              className="object-contain"
+              className="object-contain p-6 md:p-10"
               sizes="(max-width: 768px) 100vw, 50vw"
             />
           </motion.div>
@@ -81,7 +81,7 @@ export default function ObraGaleria({
               }`}
               aria-label={`Ver foto ${i + 1}`}
             >
-              <Image src={src} alt="" fill className="object-cover" sizes="80px" />
+              <Image src={src} alt="" fill className="object-contain p-1.5" sizes="80px" />
             </button>
           ))}
         </div>
