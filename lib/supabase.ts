@@ -26,6 +26,7 @@ export type Obra = {
   imagen_url: string | null;
   imagenes: string[] | null;
   descripcion: string | null;
+  texto: string | null;
   orden: number | null;
   created_at: string;
 };
