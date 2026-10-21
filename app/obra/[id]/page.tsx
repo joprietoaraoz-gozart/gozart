@@ -8,6 +8,7 @@ import ObraGaleria from "@/components/ObraGaleria";
 
 export const revalidate = 0;
 
+const RECARGO_PERSONALIZADO = 0.15;
 const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "";
 const wa = (texto: string) =>
   `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(texto)}`;
@@ -44,6 +45,10 @@ export default async function ObraPage({ params }: { params: { id: string } }) {
   const fotos = [obra.imagen_url, ...(obra.imagenes ?? [])].filter(
     (u): u is string => Boolean(u)
   );
+
+  // Personalizado: mismo cálculo que la pestaña "Pedidos" (+15% sobre el precio de lista)
+  const precioPersonalizado =
+    obra.precio1 != null ? Math.round(obra.precio1 * (1 + RECARGO_PERSONALIZADO)) : null;
 
   const obraTxt = `${obra.titulo} de ${obra.artista}`;
   const linkComprar =
@@ -90,14 +95,18 @@ export default async function ObraPage({ params }: { params: { id: string } }) {
             )}
 
             <div className="border-t border-sand pt-6 pb-6">
-              {obra.tamano1 && (
-                <p className="font-sans text-sm text-charcoal mb-1">
-                  <span className="text-stone">Tamaño:</span> {obra.tamano1}
-                </p>
-              )}
-              <p className="font-sans text-lg text-charcoal mb-5">
-                {obra.precio1 != null ? precio(obra.precio1) : "Precio a consultar"}
-              </p>
+              <dl className="grid grid-cols-[110px_1fr] gap-y-2 items-baseline mb-5">
+                {obra.tamano1 && (
+                  <>
+                    <dt className="font-sans text-xs uppercase text-stone">Tamaño</dt>
+                    <dd className="font-sans text-sm text-graphite">{obra.tamano1}</dd>
+                  </>
+                )}
+                <dt className="font-sans text-xs uppercase text-stone">Precio</dt>
+                <dd className="font-sans text-sm text-graphite">
+                  {obra.precio1 != null ? precio(obra.precio1) : "A consultar"}
+                </dd>
+              </dl>
               <a
                 href={linkComprar}
                 target="_blank"
@@ -106,17 +115,22 @@ export default async function ObraPage({ params }: { params: { id: string } }) {
               >
                 {obra.precio1 != null ? "Comprar" : "Consultar"}
               </a>
-              <p className="font-sans text-xs text-stone leading-relaxed mt-3">
-                Elaborado a pedido: 15 a 20 días hábiles (impresión y enmarcado artesanal).
-              </p>
             </div>
 
-            <div className="border-t border-sand pt-6">
+            <div className="border-t border-sand pt-6 pb-6">
               <p className="font-sans text-xs uppercase text-stone mb-2">Opción personalizada</p>
               <p className="font-sans text-sm text-graphite leading-relaxed mb-4">
                 Si querés modificar algo del armado del cuadro, contactate con nosotros y lo
                 hacemos de manera personalizada!
               </p>
+              {precioPersonalizado != null && (
+                <dl className="grid grid-cols-[110px_1fr] gap-y-2 items-baseline mb-5">
+                  <dt className="font-sans text-xs uppercase text-stone">Precio</dt>
+                  <dd className="font-sans text-sm text-graphite">
+                    Desde {precio(precioPersonalizado)}
+                  </dd>
+                </dl>
+              )}
               <a
                 href={linkPersonalizado}
                 target="_blank"
@@ -126,6 +140,10 @@ export default async function ObraPage({ params }: { params: { id: string } }) {
                 Escribinos
               </a>
             </div>
+
+            <p className="border-t border-sand pt-6 font-sans text-xs text-stone leading-relaxed">
+              Elaborado a pedido: 15 a 20 días hábiles (impresión y enmarcado artesanal).
+            </p>
           </FadeIn>
         </div>
       </section>
