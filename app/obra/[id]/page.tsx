@@ -95,7 +95,7 @@ export default async function ObraPage({ params }: { params: { id: string } }) {
             )}
 
             <div className="border-t border-sand pt-6 pb-6">
-              <dl className="grid grid-cols-[110px_1fr] gap-y-2 items-baseline mb-5">
+              <dl className="grid grid-cols-[72px_1fr] gap-y-2 items-baseline mb-5">
                 {obra.tamano1 && (
                   <>
                     <dt className="font-sans text-xs uppercase text-stone">Tamaño</dt>
@@ -124,7 +124,7 @@ export default async function ObraPage({ params }: { params: { id: string } }) {
                 hacemos de manera personalizada!
               </p>
               {precioPersonalizado != null && (
-                <dl className="grid grid-cols-[110px_1fr] gap-y-2 items-baseline mb-5">
+                <dl className="grid grid-cols-[72px_1fr] gap-y-2 items-baseline mb-5">
                   <dt className="font-sans text-xs uppercase text-stone">Precio</dt>
                   <dd className="font-sans text-sm text-graphite">
                     Desde {precio(precioPersonalizado)}
@@ -142,7 +142,7 @@ export default async function ObraPage({ params }: { params: { id: string } }) {
             </div>
 
             <p className="border-t border-sand pt-6 font-sans text-xs text-stone leading-relaxed">
-              Elaborado a pedido: 15 a 20 días hábiles (impresión y enmarcado artesanal).
+              Tiempo de elaboración: 15 a 20 días (impresión y enmarcado artesanal).
             </p>
           </FadeIn>
         </div>
