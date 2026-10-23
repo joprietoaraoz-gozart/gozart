@@ -37,7 +37,7 @@ export default function ObraCard({ obra }: { obra: Obra }) {
       </p>
       <p className="font-sans text-xs text-graphite mb-3">
         {obra.precio1 == null
-          ? "Precio a consultar"
+          ? "Consultar precio"
           : `$${obra.precio1.toLocaleString("es-AR")}`}
       </p>
 
