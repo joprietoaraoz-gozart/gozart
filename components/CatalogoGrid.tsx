@@ -17,10 +17,10 @@ export default function CatalogoGrid({ obras }: { obras: Obra[] }) {
 
   return (
     <div>
-      <div className="flex flex-wrap gap-x-4 gap-y-2 mb-10 text-sm">
+      <div className="max-w-4xl mx-auto text-center [text-wrap:balance] mb-10 text-sm">
         <button
           onClick={() => setFiltro(null)}
-          className={`pb-0.5 border-b ${
+          className={`inline-block mx-2 my-1 pb-0.5 border-b ${
             filtro === null
               ? "border-charcoal text-charcoal"
               : "border-transparent text-stone hover:text-charcoal"
@@ -32,7 +32,7 @@ export default function CatalogoGrid({ obras }: { obras: Obra[] }) {
           <button
             key={a}
             onClick={() => setFiltro(a)}
-            className={`pb-0.5 border-b ${
+            className={`inline-block mx-2 my-1 pb-0.5 border-b ${
               filtro === a
                 ? "border-charcoal text-charcoal"
                 : "border-transparent text-stone hover:text-charcoal"
