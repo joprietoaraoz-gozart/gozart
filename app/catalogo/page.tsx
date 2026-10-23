@@ -29,10 +29,10 @@ export default async function CatalogoPage() {
       <div className="pt-32 pb-10 px-6 md:px-12 text-center">
         <FadeIn>
           <h1 className="font-display text-charcoal text-4xl md:text-6xl tracking-logo">
-            obras
+            Obras
           </h1>
-          <p className="font-sans text-graphite text-sm md:text-base mt-4 max-w-md mx-auto leading-relaxed">
-            Cada cuadro se arma de manera artesanal, especialmente para vos. Tarda entre 15 a 20 días y llega listo para que lo cuelgues :)
+          <p className="font-sans text-stone text-sm md:text-base mt-4 max-w-md mx-auto leading-relaxed">
+            Cada obra se imprime en papel fine art y se enmarca a mano en Buenos Aires. Está lista en 15 a 20 días y llega preparada para colgar. Hacemos envíos en CABA y alrededores.
           </p>
         </FadeIn>
       </div>
