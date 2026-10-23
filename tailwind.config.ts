@@ -14,7 +14,7 @@ const config: Config = {
       fontFamily: {
         display: ["var(--font-poller)", "sans-serif"],
         script: ["var(--font-pinyon)", "cursive"],
-        sans: ["Helvetica Neue"', "Helvetica", "Arial", "sans-serif"],
+        sans: ["Helvetica Neue", "Helvetica", "Arial", "sans-serif"],
       },
       letterSpacing: {
         // Aproximación del -10 de tracking que usás en Figma (las unidades no son
