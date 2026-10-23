@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Poller_One, Pinyon_Script, Arimo } from "next/font/google";
 import "./globals.css";
+import WhatsAppFlotante from "@/components/WhatsAppFlotante";
 
 const poller = Poller_One({
   weight: "400",
@@ -39,6 +40,7 @@ export default function RootLayout({
         className={`${poller.variable} ${pinyon.variable} ${arimo.variable} font-sans`}
       >
         {children}
+        <WhatsAppFlotante />
       </body>
     </html>
   );
