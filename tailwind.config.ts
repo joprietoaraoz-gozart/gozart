@@ -19,7 +19,7 @@ const config: Config = {
       letterSpacing: {
         // Aproximación del -10 de tracking que usás en Figma (las unidades no son
         // 1:1 con CSS). Ajustá este valor a ojo comparando con el logo en Figma.
-        logo: "-0.05em",
+        logo: "-0.1em",
       },
     },
   },
