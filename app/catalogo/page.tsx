@@ -32,7 +32,7 @@ export default async function CatalogoPage() {
             Obras
           </h1>
           <p className="font-sans text-stone text-sm md:text-base mt-4 max-w-2xl mx-auto leading-relaxed">
-            Cada obra se imprime en papel fine art y se enmarca a mano en Buenos Aires. Está lista en 15 a 20 días y llega preparada para colgar. Hacemos envíos en CABA y alrededores.
+            Una selección curada de cuadros con obras de la historia del arte, impresas en papel fine art y enmarcadas a mano. Brindamos asesoramiento personalizado para encontrar la obra ideal en tu espacio.
           </p>
         </FadeIn>
       </div>
