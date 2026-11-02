@@ -31,7 +31,7 @@ export default async function CatalogoPage() {
           <h1 className="font-display text-charcoal text-4xl md:text-6xl tracking-logo">
             Obras
           </h1>
-          <p className="font-sans text-stone text-sm md:text-base mt-4 max-w-2xl mx-auto leading-relaxed">
+          <p className="font-sans text-stone text-sm md:text-base mt-4 max-w-4xl mx-auto leading-relaxed [text-wrap:balance]"">
             Una selección curada de cuadros con obras de la historia del arte, impresas en papel fine art y enmarcadas a mano. Brindamos asesoramiento personalizado para encontrar la obra ideal en tu espacio.
           </p>
         </FadeIn>
