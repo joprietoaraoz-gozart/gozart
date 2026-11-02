@@ -110,7 +110,7 @@ export default async function ObraPage({ params }: { params: { id: string } }) {
               </ol>
             </div>
 
-            <p className="font-sans text-sm text-graphite leading-relaxed mb-1">
+            <p className="font-sans text-sm text-graphite leading-relaxed mb-7">
               Impresión fine art en papel Epson Enhanced 200g, enmarcada a mano en marupá con
               vidrio float. El tamaño del cuadro varía según el marco y el paspartú.
             </p>
